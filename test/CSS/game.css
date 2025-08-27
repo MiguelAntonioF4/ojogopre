@@ -1,0 +1,116 @@
+/* === TELA DE JOGO === */
+.game-container {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFA500;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.game-area {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  /* fundo suave */
+  background: radial-gradient(circle at 20% 20%, #f6f7fb, #eef1f7);
+  border: 3px dashed #ccc;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  font-weight: 700;
+  font-size: 22px;
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+.game-item {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.1s;
+  animation: fall linear;
+}
+
+.game-item:hover {
+  transform: scale(1.1);
+}
+
+.item-pen { background: #e74c3c; }
+.item-cup { background: #3498db; }
+.item-book { background: #2ecc71; }
+.item-star { background: #f39c12; }
+
+@keyframes fall {
+  from { transform: translateY(0); }
+  to { transform: translateY(500px); }
+}
+
+.game-controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* === RESPONSIVIDADE JOGO === */
+@media (max-width: 768px) {
+  .game-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .game-area {
+    height: 400px;
+  }
+  
+  .game-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn-secondary {
+    margin: 0;
+  }
+}

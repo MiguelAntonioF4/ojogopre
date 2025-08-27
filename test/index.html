@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo SENAC - Pegue os Itens</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+  <!-- TELA DE LOGIN -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-container">
+      <div class="logo">SENAC</div>
+      <h1 class="login-title">Jogo Interativo SENAC</h1>
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="nome">Nome Completo</label>
+          <input type="text" id="nome" required>
+        </div>
+        <div class="input-group">
+          <label for="telefone">Telefone</label>
+          <input type="tel" id="telefone" required>
+        </div>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <button type="submit" class="btn-primary">Entrar no Jogo</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- APLICAÇÃO PRINCIPAL -->
+  <div id="appContainer" class="app-container hidden">
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo">SENAC</div>
+        <div>Menu</div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><button id="btnDashboard" class="active">📊 Dashboard</button></li>
+          <li><button id="btnJogo">🎮 Jogar</button></li>
+          <li><button id="btnLogout">🚪 Logout</button></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+      <header class="header">
+        <h1 id="pageTitle">Dashboard</h1>
+        <div id="nivelNotificacao" class="nivel-notificacao hidden"></div>
+        <div class="user-info">
+          👤 <span id="nomeUsuario"></span>
+        </div>
+      </header>
+
+      <!-- TELA DE DASHBOARD -->
+      <section id="dashboardSection">
+        <div class="dashboard-grid">
+          <div class="dashboard-card">
+            <div class="dashboard-icon" style="background: #e74c3c;">🎯</div>
+            <div class="dashboard-number" id="totalPontos">0</div>
+            <div class="dashboard-label">Total de Pontos</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-icon" style="background: #3498db;">🎮</div>
+            <div class="dashboard-number" id="partidasJogadas">0</div>
+            <div class="dashboard-label">Partidas Jogadas</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-icon" style="background: #2ecc71;">✅</div>
+            <div class="dashboard-number" id="itensClicados">0</div>
+            <div class="dashboard-label">Itens Clicados</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-icon" style="background: #e74c3c;">❌</div>
+            <div class="dashboard-number" id="bolasPassaram">0</div>
+            <div class="dashboard-label">Bolas Perdidas</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="dashboard-icon" style="background: #f39c12;">⚡</div>
+            <div class="dashboard-number" id="nivelAtual">1</div>
+            <div class="dashboard-label">Nível Atual</div>
+          </div>
+          <!-- NOVO: Card de prêmio atual -->
+          <div class="dashboard-card">
+            <div class="dashboard-icon" style="background: #8e44ad;">🏆</div>
+            <div class="dashboard-number" id="premioAtual">Nada</div>
+            <div class="dashboard-label">Prêmio da Última Partida</div>
+          </div>
+        </div>
+
+        <div class="data-table-container">
+          <div class="table-header">
+            <h3>Histórico de Partidas</h3>
+            <input type="text" class="search-box" id="searchBox" placeholder="Pesquisar...">
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Data/Hora</th>
+                <th>Pontos</th>
+                <th>Nível</th>
+                <th>Duração</th>
+                <th>Status</th>
+                <th>Prêmio</th> <!-- NOVO -->
+              </tr>
+            </thead>
+            <tbody id="historicoTabela">
+              <!-- Dados serão inseridos dinamicamente -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TELA DE JOGO -->
+      <section id="jogoSection" class="hidden">
+        <div class="game-container">
+          <div class="game-stats">
+            <div class="stat-item">
+              <div class="stat-number" id="pontuacaoAtual">0</div>
+              <div class="stat-label">Pontuação</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="nivelJogo">1</div>
+              <div class="stat-label">Nível</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="itensColetados">0</div>
+              <div class="stat-label">Itens Coletados</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="bolasPassaramJogo">0</div>
+              <div class="stat-label">Bolas Perdidas</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="tempoJogo">0:00</div>
+              <div class="stat-label">Tempo</div>
+            </div>
+          </div>
+          
+          <div class="game-area" id="gameArea">
+            <!-- Overlay de pausa dentro da área de jogo -->
+            <div id="pauseOverlay" class="overlay hidden">Pausado</div>
+          </div>
+          
+          <div class="game-controls">
+            <button id="btnIniciarJogo" class="btn-primary">Iniciar Jogo</button>
+            <button id="btnPausarJogo" class="btn-secondary" disabled>Pausar</button>
+            <button id="btnPararJogo" class="btn-secondary" disabled>Parar</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
